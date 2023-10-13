@@ -9,16 +9,16 @@ public class StudentDataSystem {
         Student stu3 = new Student(3, "Luka P", 3);
 
         // Add students into physics department
-        physics[0]=stu1;
-        physics[1]=stu2;
-        physics[2]=stu3;
+        addStudent(physics,stu1);
+        addStudent(physics,stu2);
+        addStudent(physics,stu3);
 
         // Solved: Add one more student into the department
         //         And determine if student id is unique.
 
         Student stu4 = new Student(4, "Cassie Lin", 18);
 
-        physics = addNewStudent(physics, stu4);
+        physics = addStudent(physics, stu4);
 
         // Show every student in physics department
         showAllStudents(physics);
@@ -29,12 +29,17 @@ public class StudentDataSystem {
     // Show every student in department
     public static void showAllStudents(Student[] department){
         System.out.println("----------------------------");
+        int total = 0;
         for (int i = 0; i < department.length; i++) {
-            System.out.println("Student id: "+department[i].getId());
-            System.out.println("Name: "+department[i].getName());
-            System.out.println("Age: "+department[i].getAge());
-            System.out.println("----------------------------");
+            if(department[i]!=null){
+                System.out.println("Student id: "+department[i].getId());
+                System.out.println("Name: "+department[i].getName());
+                System.out.println("Age: "+department[i].getAge());
+                System.out.println("----------------------------");
+                total++;
+            }
         }
+        System.out.println("Total student: "+total);
     }
 
 
@@ -45,8 +50,10 @@ public class StudentDataSystem {
 
     public static boolean uniqueID(Student[] department, int id){
         for (int i = 0; i < department.length; i++) {
-            if(id==department[i].getId()){
-                return false;
+            if(department[i]!=null){
+                if(id==department[i].getId()){
+                    return false;
+                }
             }
         }
         return true;
@@ -74,7 +81,7 @@ public class StudentDataSystem {
     }
 
     // Add new student into array(department)
-    public static Student[] addNewStudent(Student[] dpm, Student stu){
+    public static Student[] addStudent(Student[] dpm, Student stu){
         // Unique Student ID: uniqueId()
         // Two results:
         //      1. Unique -> Successfully created student
