@@ -1,27 +1,74 @@
+import java.lang.reflect.Type;
+import java.util.Scanner;
+
 public class StudentDataSystem {
     public static void main(String[] args) {
-        // Create a department (class size: 3)
+
+        // Create a department (default size: 3)
         Student[] physics = new Student[3];
 
-        // Create 3 students
-        Student stu1 = new Student(1, "Tom Huang", 23);
-        Student stu2 = new Student(2, "Jessie Lin", 22);
-        Student stu3 = new Student(3, "Luka P", 3);
-
-        // Add students into physics department
-        addStudent(physics,stu1);
-        addStudent(physics,stu2);
-        addStudent(physics,stu3);
-
-        // Solved: Add one more student into the department
-        //         And determine if student id is unique.
-
-        Student stu4 = new Student(4, "Cassie Lin", 18);
-
-        physics = addStudent(physics, stu4);
-
-        // Show every student in physics department
-        showAllStudents(physics);
+        // Enter command, and manipulate system
+        // initializing quit, redefine at line 62 (when the command is quit)
+        boolean quit = false;
+        // while not quit, continue to manipulate
+        while(!quit){
+            System.out.println("Now you are in the physics department, please enter your command");
+            System.out.println("-------------------------------------------------------------------------");
+            System.out.println("|    A: add student; D: delete student; S: show all student; Q: quit    |");
+            System.out.println("-------------------------------------------------------------------------");
+            Scanner input = new Scanner(System.in);
+            String command = input.next();
+            // create student, ask for id, name, and age
+            // Add student into department
+            if(command.contains("A")||command.contains("a")){
+                Scanner create = new Scanner(System.in);
+                Student stu = new Student();
+                while(stu.getId()==0){
+                    System.out.println("Please enter Student's ID");
+                    stu.setId(create.nextInt());
+                }
+                while(stu.getName()==null){
+                    System.out.println("Please enter Student's FIRST Name");
+                    String first =create.next();
+                    System.out.println("Please enter Student's LAST Name");
+                    String last =create.next();
+                    stu.setName(first+" "+last);
+                }
+                while(stu.getAge()==0){
+                    System.out.println("Please enter Student's Age");
+                    stu.setAge(create.nextInt());
+                }
+                physics=addStudent(physics, stu);
+            }
+            // Delete student, ask for id
+            else if(command.contains("D")||command.contains("d")){
+                Scanner delete = new Scanner(System.in);
+                System.out.println("Please enter the ID of the student that you want to delete.");
+                int deleteID = delete.nextInt();
+                while(getIndexById(physics,deleteID)<0){
+                    System.out.println(".........................................................................");
+                    System.out.println("Can't find student in the department, please make sure the ID is correct.");
+                    System.out.println(".........................................................................");
+                    System.out.println("Please enter the ID of the student that you want to delete.");
+                    deleteID=delete.nextInt();
+                }
+                physics=deleteStudent(physics, deleteID);
+            }
+            // Show all student in dpm
+            else if(command.contains("S")||command.contains("s")){
+                showAllStudents(physics);
+            }
+            // Quit
+            else if(command.contains("Q")||command.contains("q")){
+                quit = true;
+            }
+            // Invalid command
+            else{
+                System.out.println(".......................");
+                System.out.println("Your command is invalid");
+                System.out.println(".......................");
+            }
+        }
 
     }
 
@@ -97,7 +144,7 @@ public class StudentDataSystem {
             }
             // If not full, add student directly (department[count] = stu)
             else{
-                dpm[studentTotal]=stu;
+                dpm[getIndexOfNull(dpm)]=stu;
             }
         }
         // 2. Not unique ID -> Try again, the id already exists.
@@ -107,5 +154,44 @@ public class StudentDataSystem {
         return dpm;
     }
 
+    // Find the index of target student
+    public static int getIndexById(Student[] dpm, int id){
+        for (int i = 0; i < dpm.length; i++) {
+            // Whether the student is null
+            if(dpm[i]!=null){
+                if(dpm[i].getId()==id){
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    public static int getIndexOfNull(Student[] dpm){
+        for (int i = 0; i < dpm.length; i++) {
+            // Whether the student is null
+            if(dpm[i]==null){
+                    return i;
+            }
+        }
+        return -1;
+    }
+
+    // Solved: Delete students by id
+    public static Student[] deleteStudent(Student[] dpm, int id){
+        // Determine: If id exists, delete info (set null)
+        //            If not exist, fail to delete
+        int index = getIndexById(dpm, id);
+        if(index>=0){
+            dpm[index]=null;
+        }
+        else{
+            System.out.println("............................................");
+            System.out.println("Fail to delete: can not find target student.");
+            System.out.println("............................................");
+        }
+        System.out.println(dpm.length);
+        return dpm;
+    }
 
 }
