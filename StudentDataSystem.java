@@ -8,10 +8,8 @@ public class StudentDataSystem {
         Student[] physics = new Student[3];
 
         // Enter command, and manipulate system
-        // initializing quit, redefine at line 62 (when the command is quit)
-        boolean quit = false;
         // while not quit, continue to manipulate
-        while(!quit){
+        while(true){
             System.out.println("Now you are in the physics department, please enter your command");
             System.out.println("-------------------------------------------------------------------------");
             System.out.println("|    A: add student; D: delete student; S: show all student; Q: quit    |");
@@ -20,7 +18,7 @@ public class StudentDataSystem {
             String command = input.next();
             // create student, ask for id, name, and age
             // Add student into department
-            if(command.contains("A")||command.contains("a")){
+            if(command.equalsIgnoreCase("A")){
                 Scanner create = new Scanner(System.in);
                 Student stu = new Student();
                 while(stu.getId()==0){
@@ -41,7 +39,7 @@ public class StudentDataSystem {
                 physics=addStudent(physics, stu);
             }
             // Delete student, ask for id
-            else if(command.contains("D")||command.contains("d")){
+            else if(command.equalsIgnoreCase("D")){
                 Scanner delete = new Scanner(System.in);
                 System.out.println("Please enter the ID of the student that you want to delete.");
                 int deleteID = delete.nextInt();
@@ -55,12 +53,12 @@ public class StudentDataSystem {
                 physics=deleteStudent(physics, deleteID);
             }
             // Show all student in dpm
-            else if(command.contains("S")||command.contains("s")){
+            else if(command.equalsIgnoreCase("S")){
                 showAllStudents(physics);
             }
             // Quit
-            else if(command.contains("Q")||command.contains("q")){
-                quit = true;
+            else if(command.equalsIgnoreCase("Q")){
+                System.exit(0);
             }
             // Invalid command
             else{
@@ -192,6 +190,19 @@ public class StudentDataSystem {
         }
         System.out.println(dpm.length);
         return dpm;
+    }
+
+    public static void commands(){
+        System.out.println("************************************************************************");
+        System.out.println("Now you have entered the department, please select an option from below");
+        System.out.println("...........................");
+        System.out.println("|    1: Add student       |");
+        System.out.println("|    2: Delete student    |");
+        System.out.println("|    3: Modify student    |");
+        System.out.println("|    4: Search student    |");
+        System.out.println("|    5: Show all student  |");
+        System.out.println("|    6: Quit              |");
+        System.out.println("...........................");
     }
 
 }
