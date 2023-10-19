@@ -32,24 +32,6 @@ public class StudentSystemTest2 extends StudentDataSystem {
                 default -> System.out.println("Invalid command, please check again");
             }
 
-
-            // create student, ask for id, name, and age
-            // Add student into department
-//            // Delete student, ask for id
-//            else if(command.equalsIgnoreCase("D")){
-//                Scanner delete = new Scanner(System.in);
-//                System.out.println("Please enter the ID of the student that you want to delete.");
-//                int deleteID = delete.nextInt();
-//                while(getIndexById(physics,deleteID)<0){
-//                    System.out.println(".........................................................................");
-//                    System.out.println("Can't find student in the department, please make sure the ID is correct.");
-//                    System.out.println(".........................................................................");
-//                    System.out.println("Please enter the ID of the student that you want to delete.");
-//                    deleteID=delete.nextInt();
-//                }
-//                physics=deleteStudent(physics, deleteID);
-//            }
-
         }
     }
 
@@ -59,23 +41,68 @@ public class StudentSystemTest2 extends StudentDataSystem {
             return;
         } else {
             System.out.println("---------------------------------");
-            System.out.println("Id\t\tName\t\tAge");
+            System.out.println("Id \t Name \t Age");
             int total = 0;
             for (int i = 0; i < list.size(); i++) {
                 Student stu = list.get(i);
                 if (stu != null) {
-                    System.out.println(stu.getId()+"\t\t"+stu.getName()+"\t\t"+stu.getAge());
-                    System.out.println("---------------------------------");
+                    System.out.println(stu.getId()+" \t "+stu.getName()+" \t "+stu.getAge());
                     total++;
                 }
             }
+            System.out.println("---------------------------------");
             System.out.println("Total student: " + total);
         }
 
     } // Done
 
-    public static void modifyStudent(ArrayList<Student> list){}
+    public static void modifyStudent(ArrayList<Student> list){
+        Scanner sz = new Scanner(System.in);
+        System.out.println("Please enter Student's ID that you want to modify.");
+        int id = sz.nextInt();
+        // Find the index of id in the list
+        int index = getIndexById(list, id);
+        boolean quit = false;
+        if(index>=0){
+            // If id exists, modify it.
+            Student stu = list.get(index);
+            while (!quit) {
+                findStudent(list, id);
+                System.out.println("************************************************");
+                System.out.println("Please select what you want to modify from below");
+                System.out.println(".......................");
+                System.out.println("|   1: Student Name   |");
+                System.out.println("|   2: Student Age    |");
+                System.out.println("|   3: Quit           |");
+                System.out.println(".......................");
+                String choice = sz.next();
+                switch (choice) {
+                    case "1" -> {
+                        System.out.println("Please enter the new FIRST name");
+                        String first =sz.next();
+                        System.out.println("Please enter the new LAST name");
+                        String last =sz.next();
+                        stu.setName(first+" "+last);
+                        System.out.println("Student name has been modified");
+                    }
+                    case "2" -> {
+                        System.out.println("Please enter the new age");
+                        stu.setAge(sz.nextInt());
+                        System.out.println("Student age has been modified");
+                    }
+                    case "3" -> quit = true;
+                    default -> System.out.println("Invalid command, please enter again");
+                }
+            }
+        }
+        else {
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            System.out.println("Modify fails. The ID does not exist.");
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        }
+    } // Done
 
+    // Add student by input
     public static void addStudent(ArrayList<Student> list){
         Scanner sz = new Scanner(System.in);
         Student stu = new Student();
@@ -107,10 +134,69 @@ public class StudentSystemTest2 extends StudentDataSystem {
         System.out.println("Successfully added student!");
     } // Done
 
-    public static void deleteStudent(ArrayList<Student> list){}
+    // Delete student by input
+    public static void deleteStudent(ArrayList<Student> list){
+        Scanner sz = new Scanner(System.in);
+        System.out.println("Please enter Student's ID that you want to delete.");
+        int id = sz.nextInt();
+        // Find the index of id in the list
+        int index = getIndexById(list, id);
+        if(index>=0){
+            // If id exists, remove it.
+            list.remove(index);
+        }
+        else {
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            System.out.println("Deletion fails. The ID does not exist.");
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        }
 
-    public static void findStudent(ArrayList<Student> list){}
+    } // Done
 
+    // Finding the student by input id
+    public static void findStudent(ArrayList<Student> list){
+        Scanner sz = new Scanner(System.in);
+        System.out.println("Please enter Student's ID.");
+        int id = sz.nextInt();
+        // Find the index of id in the list
+        int index = getIndexById(list, id);
+        if(index>=0){
+            // If id exists, show it.
+            Student stu = list.get(index);
+            System.out.println("---------------------------------");
+            System.out.println("Id\t\tName\t\tAge");
+            System.out.println(stu.getId()+"\t\t"+stu.getName()+"\t\t"+stu.getAge());
+            System.out.println("---------------------------------");
+        }
+        else {
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            System.out.println("Fail to find student, please check the id");
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        }
+
+    } // Done
+
+    // Finding the student by given id
+    public static void findStudent(ArrayList<Student> list, int id){
+        // Find the index of id in the list
+        int index = getIndexById(list, id);
+        if(index>=0){
+            // If id exists, show it.
+            Student stu = list.get(index);
+            System.out.println("---------------------------------");
+            System.out.println("Id\t\tName\t\tAge");
+            System.out.println(stu.getId()+"\t\t"+stu.getName()+"\t\t"+stu.getAge());
+            System.out.println("---------------------------------");
+        }
+        else {
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            System.out.println("Fail to find student, please check the id");
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        }
+
+    } // Done
+
+    // check if the id is unique
     public static boolean uniqueID(ArrayList<Student> list, int id){
         for (int i = 0; i < list.size(); i++) {
             if(list.get(i)!=null){
@@ -120,5 +206,18 @@ public class StudentSystemTest2 extends StudentDataSystem {
             }
         }
         return true;
+    } // Done
+
+    // Get index of the id provided
+    public static int getIndexById(ArrayList<Student> list, int id){
+        for (int i = 0; i < list.size(); i++) {
+            // Whether the student is null
+            if(list.get(i)!=null){
+                if(list.get(i).getId()==id){
+                    return i;
+                }
+            }
+        }
+        return -1;
     } // Done
 }
