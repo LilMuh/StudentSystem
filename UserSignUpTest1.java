@@ -1,3 +1,5 @@
+package StudentSystem;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -26,26 +28,41 @@ public class UserSignUpTest1 extends User{
          */
 
         // Initialize user list
-        ArrayList<User> userList = new ArrayList<User>();
+        ArrayList<User> userList = User.createUserList();
         User admin = new User(
                 "admin123",
                 "12345",
                 "110105190001010001",
                 "4168888888"
         );
+        admin.setUserList(userList);
         userList.add(admin);
 
-    // Username
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Please create your username");
-        // If the username exists in the list (getIndex)
-        // If the length() is 3~15
-        // If the chars in 'a'~'z' 'A'~'Z' '0'~'9'
-        // If the letters count >= 0
+// System starts
+        boolean loggedIn = false;
+        while (!loggedIn) {
+            User.loginCommand();
+            Scanner input = new Scanner(System.in);
+            String choice = input.next();
+            // Detecting the command
+            switch (choice) {
+                case "1" -> {
+                    loggedIn = login(userList);
+                    if(loggedIn){System.out.println("Successfully Logged in!");}
+                    else{
+                        System.out.println("*************************PLEASE TRY AGAIN*************************");
+                        System.out.println("   Fail to log in, please check again the username and password.  ");
+                        System.out.println("******************************************************************");
+                    }
+                }
+                case "2" -> signUp(userList); // Done
+                case "3" -> System.out.println("Your password has been reset!");
+                case "4" -> System.exit(0);
+                default -> System.out.println("Invalid command, please try again");
+            }
+        }
 
-    // password
-    // workerID
-    // phoneNumber
+
     }
 
 }

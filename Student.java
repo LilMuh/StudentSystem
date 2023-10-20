@@ -1,3 +1,4 @@
+package StudentSystem;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -53,7 +54,7 @@ public class Student {
     }
 
 
-// Updated: 2023.10.18
+// Updated: 2023.10.18   (Student System)
 
     // Print out the option list of commands
     public static void commands(){
@@ -67,7 +68,7 @@ public class Student {
         System.out.println("|    5: Show all student  |");
         System.out.println("|    6: Quit              |");
         System.out.println("...........................");
-    }
+    } // Done
 
     // Show all student in console
     public static void showAllStudents(ArrayList<Student> list) {
@@ -233,7 +234,7 @@ public class Student {
     } // Done
 
     // check if the id is unique
-    public static boolean uniqueID(ArrayList<Student> list, int id){
+    private static boolean uniqueID(ArrayList<Student> list, int id){
         for (int i = 0; i < list.size(); i++) {
             if(list.get(i)!=null){
                 if(id==list.get(i).getId()){
@@ -245,7 +246,7 @@ public class Student {
     } // Done
 
     // Get index of the id provided
-    public static int getIndexById(ArrayList<Student> list, int id){
+    private static int getIndexById(ArrayList<Student> list, int id){
         for (int i = 0; i < list.size(); i++) {
             // Whether the student is null
             if(list.get(i)!=null){
@@ -256,4 +257,5 @@ public class Student {
         }
         return -1;
     } // Done
+
 }

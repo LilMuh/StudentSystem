@@ -1,3 +1,7 @@
+package StudentSystem;
+
+import StudentSystem.StudentDataSystem;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -18,7 +22,7 @@ public class StudentSystemTest2 extends StudentDataSystem {
         */
         // while not quit, continue to manipulate
         while (true) {
-            commands();
+            StudentDataSystem.commands();
             Scanner input = new Scanner(System.in);
             String choice = input.next();
             // Detecting the command
