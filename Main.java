@@ -7,14 +7,14 @@ public class Main{
 
 // User system
 // Initialize user list
-        ArrayList<User> userList = User.createUserList();
-        // Adding the account for admin in the userList
+// Adding the account for admin in the userList
         User admin = new User(
                 "admin123",
                 "12345",
                 "110105190001010001",
                 "4168888888");
-        admin.setUserList(userList);
+        admin.createUserList();
+        ArrayList<User> userList = admin.getUserList();
         userList.add(admin);
 
 // User System starts

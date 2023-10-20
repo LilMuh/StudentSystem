@@ -78,8 +78,9 @@ public class User {
         this.userList = userList;
     }
 
-    public static ArrayList<User> createUserList(){
+    public ArrayList<User> createUserList(){
         ArrayList<User> userList = new ArrayList<User>();
+        this.setUserList(userList);
         return userList;
     }
 }

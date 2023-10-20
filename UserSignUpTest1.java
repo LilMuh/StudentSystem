@@ -27,14 +27,13 @@ public class UserSignUpTest1 extends User {
          */
 
         // Initialize user list
-        ArrayList<User> userList = User.createUserList();
         User admin = new User(
                 "admin123",
                 "12345",
                 "110105190001010001",
-                "4168888888"
-        );
-        admin.setUserList(userList);
+                "4168888888");
+        admin.createUserList();
+        ArrayList<User> userList = admin.getUserList();
         userList.add(admin);
 
 // System starts
