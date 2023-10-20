@@ -1,45 +1,29 @@
 package StudentSystemUpdated;
 
-import StudentSystem.Student;
-import StudentSystem.StudentDataSystem;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class StudentSystemTest2 extends StudentDataSystem {
-    public static void main(String[] args) {
-        // Create a department (default size: 3)
-        ArrayList<StudentSystem.Student> dpm = new ArrayList<>(3);
+public class StudentSysUtil {
+    private StudentSysUtil(){};
 
-        // Enter command, and manipulate system
-        /*
-        1: Add student
-        2: Delete student
-        3: Modify student
-        4: Search student
-        5: Show all student
-        6: Quit
-        */
-        // while not quit, continue to manipulate
-        while (true) {
-            StudentDataSystem.commands();
-            Scanner input = new Scanner(System.in);
-            String choice = input.next();
-            // Detecting the command
-            switch (choice) {
-                case "1" -> addStudent(dpm);
-                case "2" -> deleteStudent(dpm);
-                case "3" -> modifyStudent(dpm);
-                case "4" -> findStudent(dpm);
-                case "5" -> showAllStudents(dpm);
-                case "6" -> System.exit(0);
-                default -> System.out.println("Invalid command, please check again");
-            }
+    // Updated: 2023.10.18   (Student System)
 
-        }
-    }
+    // Print out the option list of commands
+    public static void commands(){
+        System.out.println("************************************************************************");
+        System.out.println("Now you have entered the department, please select an option from below");
+        System.out.println("...........................");
+        System.out.println("|    1: Add student       |");
+        System.out.println("|    2: Delete student    |");
+        System.out.println("|    3: Modify student    |");
+        System.out.println("|    4: Search student    |");
+        System.out.println("|    5: Show all student  |");
+        System.out.println("|    6: Quit              |");
+        System.out.println("...........................");
+    } // Done
 
-    public static void showAllStudents(ArrayList<StudentSystem.Student> list) {
+    // Show all student in console
+    public static void showAllStudents(ArrayList<Student> list) {
         if (list.size() == 0) {
             System.out.println("There is no student in the department.");
             return;
@@ -48,7 +32,7 @@ public class StudentSystemTest2 extends StudentDataSystem {
             System.out.println("Id \t Name \t Age");
             int total = 0;
             for (int i = 0; i < list.size(); i++) {
-                StudentSystem.Student stu = list.get(i);
+                Student stu = list.get(i);
                 if (stu != null) {
                     System.out.println(stu.getId()+" \t "+stu.getName()+" \t "+stu.getAge());
                     total++;
@@ -60,7 +44,8 @@ public class StudentSystemTest2 extends StudentDataSystem {
 
     } // Done
 
-    public static void modifyStudent(ArrayList<StudentSystem.Student> list){
+    // Modify Student
+    public static void modifyStudent(ArrayList<Student> list){
         Scanner sz = new Scanner(System.in);
         System.out.println("Please enter Student's ID that you want to modify.");
         int id = sz.nextInt();
@@ -69,7 +54,7 @@ public class StudentSystemTest2 extends StudentDataSystem {
         boolean quit = false;
         if(index>=0){
             // If id exists, modify it.
-            StudentSystem.Student stu = list.get(index);
+            Student stu = list.get(index);
             while (!quit) {
                 findStudent(list, id);
                 System.out.println("************************************************");
@@ -107,9 +92,9 @@ public class StudentSystemTest2 extends StudentDataSystem {
     } // Done
 
     // Add student by input
-    public static void addStudent(ArrayList<StudentSystem.Student> list){
+    public static void addStudent(ArrayList<Student> list){
         Scanner sz = new Scanner(System.in);
-        StudentSystem.Student stu = new StudentSystem.Student();
+        Student stu = new Student();
         while(stu.getId()==0){
             System.out.println("Please enter Student's ID");
             int id = sz.nextInt();
@@ -139,7 +124,7 @@ public class StudentSystemTest2 extends StudentDataSystem {
     } // Done
 
     // Delete student by input
-    public static void deleteStudent(ArrayList<StudentSystem.Student> list){
+    public static void deleteStudent(ArrayList<Student> list){
         Scanner sz = new Scanner(System.in);
         System.out.println("Please enter Student's ID that you want to delete.");
         int id = sz.nextInt();
@@ -158,7 +143,7 @@ public class StudentSystemTest2 extends StudentDataSystem {
     } // Done
 
     // Finding the student by input id
-    public static void findStudent(ArrayList<StudentSystem.Student> list){
+    public static void findStudent(ArrayList<Student> list){
         Scanner sz = new Scanner(System.in);
         System.out.println("Please enter Student's ID.");
         int id = sz.nextInt();
@@ -166,7 +151,7 @@ public class StudentSystemTest2 extends StudentDataSystem {
         int index = getIndexById(list, id);
         if(index>=0){
             // If id exists, show it.
-            StudentSystem.Student stu = list.get(index);
+            Student stu = list.get(index);
             System.out.println("---------------------------------");
             System.out.println("Id\t\tName\t\tAge");
             System.out.println(stu.getId()+"\t\t"+stu.getName()+"\t\t"+stu.getAge());
@@ -181,12 +166,12 @@ public class StudentSystemTest2 extends StudentDataSystem {
     } // Done
 
     // Finding the student by given id
-    public static void findStudent(ArrayList<StudentSystem.Student> list, int id){
+    public static void findStudent(ArrayList<Student> list, int id){
         // Find the index of id in the list
         int index = getIndexById(list, id);
         if(index>=0){
             // If id exists, show it.
-            StudentSystem.Student stu = list.get(index);
+            Student stu = list.get(index);
             System.out.println("---------------------------------");
             System.out.println("Id\t\tName\t\tAge");
             System.out.println(stu.getId()+"\t\t"+stu.getName()+"\t\t"+stu.getAge());
@@ -201,7 +186,7 @@ public class StudentSystemTest2 extends StudentDataSystem {
     } // Done
 
     // check if the id is unique
-    public static boolean uniqueID(ArrayList<StudentSystem.Student> list, int id){
+    private static boolean uniqueID(ArrayList<Student> list, int id){
         for (int i = 0; i < list.size(); i++) {
             if(list.get(i)!=null){
                 if(id==list.get(i).getId()){
@@ -213,7 +198,7 @@ public class StudentSystemTest2 extends StudentDataSystem {
     } // Done
 
     // Get index of the id provided
-    public static int getIndexById(ArrayList<Student> list, int id){
+    private static int getIndexById(ArrayList<Student> list, int id){
         for (int i = 0; i < list.size(); i++) {
             // Whether the student is null
             if(list.get(i)!=null){

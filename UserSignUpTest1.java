@@ -1,9 +1,8 @@
-package StudentSystem;
-
+package StudentSystemUpdated;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class UserSignUpTest1 extends User{
+public class UserSignUpTest1 extends User {
     public static void main(String[] args) {
         // Sign up properties
         /*
@@ -41,14 +40,14 @@ public class UserSignUpTest1 extends User{
 // System starts
         boolean loggedIn = false;
         while (!loggedIn) {
-            User.loginCommand();
+            UserSysUtil.loginCommand();
             Scanner input = new Scanner(System.in);
             String choice = input.next();
             // Detecting the command
             switch (choice) {
-                case "1" -> loggedIn = login(userList);
-                case "2" -> signUp(userList); // Done
-                case "3" -> forget(userList);
+                case "1" -> loggedIn = UserSysUtil.login(userList);
+                case "2" -> UserSysUtil.signUp(userList); // Done
+                case "3" -> UserSysUtil.forget(userList);
                 case "4" -> System.exit(0);
                 default -> System.out.println("Invalid command, please try again");
             }

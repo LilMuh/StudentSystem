@@ -1,8 +1,7 @@
-package StudentSystem;
-import StudentSystem.Student;
+package StudentSystemUpdated;
 
-import java.lang.reflect.Type;
 import java.util.Scanner;
+
 public class StudentDataSystem {
     public static void main(String[] args) {
 
