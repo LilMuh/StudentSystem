@@ -26,4 +26,4 @@ Comletely developed the whole systems. Future updates would be maintainance and 
 ## 2023.10.19
 Almost done for the log in system. Last part is the "Forget" section, which would be done by tomorrow (est.).
 # Usage:
-Download the files and run the file "Main.java", then you can manipulate in the console/cmd.
+Download the files and run the file "Main.java", then you can manipulate in the console/cmd. An admin account has been provided in the file for you to try it out first.
