@@ -12,7 +12,7 @@ This is the module to adjust student information into department database.
 3. User login system 
     - Log in
     - Sign up
-    - Forget (coming soon)
+    - Forget 
     - Quit
 
 ## 2023.10.12
@@ -24,6 +24,6 @@ Updating the method by switching Student[] to ArrayList<Student>, which makes th
 ## 2023.10.18
 Comletely developed the whole systems. Future updates would be maintainance and improvement for efficiency. DM for more advice about features.
 ## 2023.10.19
-Almost done for the log in system. Last part is the "Forget" section, which would be done by tomorrow (est.).
+Add a new system for department admins to login/register/forgetpassword. After log in, the student system can then be manipulated. This process improves the safety. One admin account is provided in the file "Main.java", check it out!
 # Usage:
 Download the files and run the file "Main.java", then you can manipulate in the console/cmd. An admin account has been provided in the file for you to try it out first.
