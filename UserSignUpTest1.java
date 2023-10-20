@@ -46,22 +46,13 @@ public class UserSignUpTest1 extends User{
             String choice = input.next();
             // Detecting the command
             switch (choice) {
-                case "1" -> {
-                    loggedIn = login(userList);
-                    if(loggedIn){System.out.println("Successfully Logged in!");}
-                    else{
-                        System.out.println("*************************PLEASE TRY AGAIN*************************");
-                        System.out.println("   Fail to log in, please check again the username and password.  ");
-                        System.out.println("******************************************************************");
-                    }
-                }
+                case "1" -> loggedIn = login(userList);
                 case "2" -> signUp(userList); // Done
-                case "3" -> System.out.println("Your password has been reset!");
+                case "3" -> forget(userList);
                 case "4" -> System.exit(0);
                 default -> System.out.println("Invalid command, please try again");
             }
         }
-
 
     }
 

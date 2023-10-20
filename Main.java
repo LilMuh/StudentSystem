@@ -20,7 +20,7 @@ public class Main{
         admin.setUserList(userList);
         userList.add(admin);
 
-// System starts
+// User System starts
         boolean loggedIn = false;
         while (!loggedIn) {
             // Print out options of command
@@ -29,23 +29,15 @@ public class Main{
             String choice = input.next();
             // Detecting the command
             switch (choice) {
-                case "1" -> {
-                    loggedIn = User.login(userList);
-                    if(loggedIn){System.out.println("Successfully Logged in!");}
-                    else{
-                        System.out.println("*************************PLEASE TRY AGAIN*************************");
-                        System.out.println("   Fail to log in, please check again the username and password.  ");
-                        System.out.println("******************************************************************");
-                    }
-                }
-                case "2" -> User.signUp(userList);
-                case "3" -> System.out.println("Your password has been reset!"); // On going
+                case "1" -> loggedIn = User.login(userList);
+                case "2" -> User.signUp(userList); // Done
+                case "3" -> User.forget(userList);
                 case "4" -> System.exit(0);
                 default -> System.out.println("Invalid command, please try again");
             }
         }
 
-// Manipulation system
+// Manipulation student system
         // Create a department (default size: 3)
         ArrayList<Student> dpm = new ArrayList<>(3);
         // Enter command, and manipulate system

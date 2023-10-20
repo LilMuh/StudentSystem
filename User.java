@@ -131,8 +131,17 @@ public class User {
             }
         }
         User u = new User(username, password, null, null);
-    // check username and password is correct
-        return checkUserInfo(list, u);
+        // check username and password is correct
+        boolean loggedIn = checkUserInfo(list, u);
+
+        if(loggedIn){System.out.println("Successfully Logged in!");}
+        else{
+            System.out.println("*************************PLEASE TRY AGAIN*************************");
+            System.out.println("   Fail to log in, please check again the username and password.  ");
+            System.out.println("******************************************************************");
+        }
+
+        return loggedIn;
     }
 
     // check whether the input matches system
@@ -328,6 +337,7 @@ public class User {
     }
 
     // Check string is unique in the UserList
+    // If the string is unique/does not exist in the list, return true.
     private static boolean unique(ArrayList<User> list, String str) {
         for (int i = 0; i < list.size(); i++) {
             if(list.get(i).getUsername().equals(str)){return false;}
@@ -338,6 +348,75 @@ public class User {
 
 // Forget
 
+    public static void forget(ArrayList<User> list){
+        // Ask for the username
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Please enter your username");
+        String username = sc.next();
+        // If username is not registered, end the method
+        if(unique(list, username)){
+            System.out.println("************PLEASE TRY AGAIN************");
+            System.out.println(" This username has not been registered. ");
+            System.out.println("****************************************");
+            return;
+        }
+        // Ask for the workerID and phoneNumber
+        System.out.println("Please enter your workerID");
+        String workerID = sc.next();
+        System.out.println("Please enter your phoneNumber");
+        String phoneNumber = sc.next();
+
+
+        // Pull out the user info based on username
+        int index = indexUser(list, username);
+        User u = list.get(index);
+        // Compare workID and phoneNumber to the database
+        if(!( u.getWorkerID().equals(workerID) && u.getPhoneNumber().equals(phoneNumber) )){
+            // If different, end the method
+            System.out.println("***************************PLEASE TRY AGAIN***************************");
+            System.out.println("  Either workID or phoneNumber does not match the ones in our system. ");
+            System.out.println("**********************************************************************");
+            return;
+        }
+
+        String password;
+        // Authorization passes and now reset the password
+        while (true) {
+            System.out.println("Hello, "+username+"! Please enter the new password.");
+            password = sc.next();
+            System.out.println("Please enter again the new password.");
+            String passwordVerify = sc.next();
+            if(!password.equals(passwordVerify)){
+                System.out.println("***************PLEASE TRY AGAIN***************");
+                System.out.println("  The passwords you entered are not the same. ");
+                System.out.println("**********************************************");
+            }
+            else{break;}
+        }
+        u.setPassword(password);
+
+        // Password reset. Show the info
+        System.out.println("Your password has been reset successfully!");
+        System.out.println("_______________________________________________");
+        System.out.println("----------Please save your login info----------");
+        System.out.println("Username: "+ username);
+        System.out.println("Password: "+ password);
+        System.out.println("Worker ID: "+ workerID);
+        System.out.println("Phone number: "+ phoneNumber);
+        System.out.println("_______________________________________________");
+        System.out.println();
+
+        // Success to reset password, return true.
+    }
+
+    private static int indexUser(ArrayList<User> list, String username) {
+        for (int i = 0; i < list.size(); i++) {
+            if(list.get(i).getUsername().equals(username)){
+                return i;
+            }
+        }
+        return -1;
+    }
 
 
 }
