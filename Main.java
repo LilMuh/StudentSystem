@@ -3,6 +3,19 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main{
+    // Setting constant
+    private static final String LOGIN = "1";
+    private static final String SIGN_UP = "2";
+    private static final String FORGET = "3";
+    private static final String USER_QUIT = "4";
+    private static final String ADD_STUDENT = "1";
+    private static final String DELETE_STUDENT = "2";
+    private static final String MODIFY_STUDENT = "3";
+    private static final String FIND_STUDENT = "4";
+    private static final String SHOW_ALL_STUDENTS = "5";
+    private static final String STUDENT_QUIT = "6";
+
+
     public static void main(String[] args) {
 
 // User system
@@ -26,10 +39,10 @@ public class Main{
             String choice = input.next();
             // Detecting the command
             switch (choice) {
-                case "1" -> loggedIn = UserSysUtil.login(userList);
-                case "2" -> UserSysUtil.signUp(userList); // Done
-                case "3" -> UserSysUtil.forget(userList);
-                case "4" -> System.exit(0);
+                case LOGIN -> loggedIn = UserSysUtil.login(userList);
+                case SIGN_UP -> UserSysUtil.signUp(userList); // Done
+                case FORGET -> UserSysUtil.forget(userList);
+                case USER_QUIT -> System.exit(0);
                 default -> System.out.println("Invalid command, please try again");
             }
         }
@@ -53,12 +66,12 @@ public class Main{
             String choice = input.next();
             // Detecting the command
             switch (choice) {
-                case "1" -> StudentSysUtil.addStudent(dpm);
-                case "2" -> StudentSysUtil.deleteStudent(dpm);
-                case "3" -> StudentSysUtil.modifyStudent(dpm);
-                case "4" -> StudentSysUtil.findStudent(dpm);
-                case "5" -> StudentSysUtil.showAllStudents(dpm);
-                case "6" -> System.exit(0);
+                case ADD_STUDENT -> StudentSysUtil.addStudent(dpm);
+                case DELETE_STUDENT -> StudentSysUtil.deleteStudent(dpm);
+                case MODIFY_STUDENT -> StudentSysUtil.modifyStudent(dpm);
+                case FIND_STUDENT -> StudentSysUtil.findStudent(dpm);
+                case SHOW_ALL_STUDENTS -> StudentSysUtil.showAllStudents(dpm);
+                case STUDENT_QUIT -> System.exit(0);
                 default -> System.out.println("Invalid command, please check again");
             }
         }
