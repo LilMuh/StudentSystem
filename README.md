@@ -1,5 +1,7 @@
 # StudentSystem
 This is the module to adjust student information into department database.
+
+Direct to Web version -> [SystemWebsite](https://github.com/LilMuh/StudentSysWeb)
 #### Existing feature:
 1. Manipulate System
     - Add student
